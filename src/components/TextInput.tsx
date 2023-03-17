@@ -11,7 +11,7 @@ function TextInputRoot(props: TextInputRootProps) {
   return (
     <div
       className={clsx(
-        "flex h-12 items-center gap-3 py-4 px-3 rounded-lg border-2 border-gray200 bg-white   w-full focus-within:ring-2 ring-purple ",
+        "flex h-12 items-center  lg:h-[53px] gap-3 py-4 px-3 rounded border-2 border-gray200 bg-white   w-full focus-within:ring-2 ring-purple ",
         props.className
       )}
     >
@@ -39,7 +39,7 @@ export interface TextInputInputProps
 function TextInputInput(props: TextInputInputProps) {
   return (
     <input
-      className="bg-transparent flex-1 text-gray800  outline-none placeholder:text-gray400"
+      className="bg-transparent flex-1 text-gray800  outline-none placeholder:text-gray400 "
       {...props}
     />
   );

@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        project: "1280px",
+      },
       fontFamily: {
         sans: ["Titillium Web", "san-serif"],
       },
