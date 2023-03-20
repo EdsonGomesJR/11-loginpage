@@ -6,25 +6,27 @@ import { Envelope, Lock, EyeSlash } from "phosphor-react";
 
 function App() {
   const [email, setEmail] = useState("");
-  const [veryfiedEmail, setVeryfiedEmail] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [hasPassword, setHasPassword] = useState(false);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!email.match(mailformat)) {
-      setVeryfiedEmail(true);
+    if (isValidEmail && email.length > 0) {
+      alert("Please enter a valid email");
+      console.log(email);
     } else {
-      setVeryfiedEmail(false);
+      setIsValidEmail(false);
+      console.log(email);
     }
   }
   function verifyEmail(email: string) {
-    if (email.length < 10) {
-      console.log("digitou +4 digitos");
-
-      setEmail(email);
+    setEmail(email);
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!email.match(mailformat) && email.length > 2) {
+      setIsValidEmail(true);
     } else {
-      console.log("Verificando o texto digitado...");
-      setEmail(email);
+      setIsValidEmail(false);
     }
   }
   return (
@@ -68,14 +70,14 @@ function App() {
                   </span>
                   <TextInput.Root
                     className={` ${
-                      veryfiedEmail
-                        ? "border-[#ED3A5A] focus-within:ring-0"
+                      isValidEmail
+                        ? " border-2 border-[#ed3a5a] focus-within:ring-1 ring-[#ed3a5a]"
                         : ""
                     }`}
                   >
                     <TextInput.Input
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => verifyEmail(e.target.value)}
                       // type="email"
                       id="email"
                       placeholder="Digite seu e-mail"
@@ -83,7 +85,7 @@ function App() {
                   </TextInput.Root>
                   <span
                     className={`flex ml-2 text-xs  text-[#ED3A5A] ${
-                      veryfiedEmail ? "flex" : "hidden"
+                      !isValidEmail ? "hidden" : "flex"
                     }`}
                   >
                     Digite um e-mail válido
@@ -100,9 +102,11 @@ function App() {
                   </div>
                   <TextInput.Root>
                     <TextInput.Input
+                      value={password}
                       type="password"
                       id="password"
                       placeholder="Digite sua senha"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <TextInput.Icon>
                       <EyeSlash />
@@ -110,11 +114,20 @@ function App() {
                   </TextInput.Root>
                 </div>
 
-                <button
-                  className={`hover:cursor-pointer lg:mt-4 lg:text-[16px] lg:font-bold lg:leading-[24px] lg:flex lg:justify-center lg:px-6 lg:gap-[10px] lg:h-[53px] py-4 px-3 rounded project:mt-4 text-white bg-purple hover:bg-[#9F67FF]`}
-                >
-                  Entrar
-                </button>
+                {!isValidEmail ? (
+                  <button
+                    className={`bg-purple hover:bg-[#9F67FF] hover:cursor-pointer lg:mt-4 lg:text-[16px] lg:font-bold lg:leading-[24px] lg:flex lg:justify-center lg:px-6 lg:gap-[10px] lg:h-[53px] py-4 px-3 rounded project:mt-4 text-white`}
+                  >
+                    Entrar
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className={` bg-gray-300  cursor-not-allowed lg:mt-4 lg:text-[16px] lg:font-bold lg:leading-[24px] lg:flex lg:justify-center lg:px-6 lg:gap-[10px] lg:h-[53px] py-4 px-3 rounded project:mt-4 text-white`}
+                  >
+                    Entrar
+                  </button>
+                )}
               </form>
               <div className="project:mt-4">
                 <span className="text-gray600">Ainda não tem uma conta?</span>{" "}
